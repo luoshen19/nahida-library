@@ -1,2 +1,9 @@
 server:
   port: 9000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/nahida_library
+    username: your_username
+    password: your_password
+    driver-class-name: org.postgresql.Driver
