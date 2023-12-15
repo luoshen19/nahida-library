@@ -20,7 +20,7 @@
         <springcloud.version>Hoxton.SR12</springcloud.version>
         <springcloud.alibaba.version>2.2.9.RELEASE</springcloud.alibaba.version>
         <springboot.version>2.2.13.RELEASE</springboot.version>
-        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <mybatis-plus.version>3.5.3</mybatis-plus.version>
     </properties>
 
     <dependencyManagement>
@@ -53,8 +53,6 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
