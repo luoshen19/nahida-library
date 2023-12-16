@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableId
 import java.time.OffsetDateTime
 
-open class BaseModel {
+abstract class BaseModel {
   @TableId
   val id: Long? = null
   val createAt: OffsetDateTime? = null

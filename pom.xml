@@ -21,6 +21,7 @@
         <springcloud.alibaba.version>2.2.9.RELEASE</springcloud.alibaba.version>
         <springboot.version>2.2.13.RELEASE</springboot.version>
         <mybatis-plus.version>3.5.3</mybatis-plus.version>
+        <shiro.version>1.8.0</shiro.version>
     </properties>
 
     <dependencyManagement>
@@ -54,6 +55,12 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring-boot-web-starter</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -81,7 +88,20 @@
                 </executions>
                 <configuration>
                     <jvmTarget>11</jvmTarget>
+                    <compilerPlugins>
+                        <plugin>no-arg</plugin>
+                    </compilerPlugins>
+                    <pluginOptions>
+                        <option>no-arg:annotation=package xyz.nahidalibrary.account.anno</option>
+                    </pluginOptions>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-noarg</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
