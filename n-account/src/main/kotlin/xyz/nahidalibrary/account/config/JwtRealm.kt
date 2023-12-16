@@ -8,26 +8,42 @@ import org.apache.shiro.authc.UsernamePasswordToken
 import org.apache.shiro.authz.AuthorizationInfo
 import org.apache.shiro.realm.AuthorizingRealm
 import org.apache.shiro.subject.PrincipalCollection
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import xyz.nahidalibrary.account.mapper.AccountMapper
 import xyz.nahidalibrary.account.model.AccountModel
 
 @Configuration
-open class MyRealm : AuthorizingRealm() {
+open class JwtRealm : AuthorizingRealm() {
+  
+  private val logger = LoggerFactory.getLogger(JwtRealm::class.java)
   
   @Autowired
   private lateinit var accountMapper: AccountMapper
   
-  override fun doGetAuthenticationInfo(token: AuthenticationToken?): AuthenticationInfo? {
-    val usernamePasswordToken = token as UsernamePasswordToken
+  override fun supports(token: AuthenticationToken?): Boolean {
+    return token is JwtToken
+  }
+  
+  /**
+   * 认证
+   */
+  override fun doGetAuthenticationInfo(authToken: AuthenticationToken): AuthenticationInfo? {
+//    val username = JwtUtils.getUsername(authToken.credentials as String)
+//      ?: throw BizException()
+    
+    
+    val usernamePasswordToken = authToken as UsernamePasswordToken
     val wrapper = QueryWrapper<AccountModel>()
     wrapper.eq(AccountModel::username.name, usernamePasswordToken.username)
     return accountMapper.selectOne(wrapper)?.let { SimpleAuthenticationInfo(it, it.password, "myRealm") }
   }
   
-  override fun doGetAuthorizationInfo(principalCollection: PrincipalCollection?): AuthorizationInfo? {
-    println("hello")
+  /**
+   * 鉴权
+   */
+  override fun doGetAuthorizationInfo(principal: PrincipalCollection?): AuthorizationInfo? {
     return null
   }
 }

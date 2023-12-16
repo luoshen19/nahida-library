@@ -14,4 +14,9 @@ class TestController {
   fun probe(): ResponseEntity<Map<String, String>> {
     return ResponseEntity(mapOf("hello" to "world"), HttpStatus.OK)
   }
+  
+  @GetMapping("/jwt")
+  fun jwt(): ResponseEntity<Map<String, String>> {
+    return ResponseEntity(mapOf("hello" to "world"), HttpStatus.OK)
+  }
 }
