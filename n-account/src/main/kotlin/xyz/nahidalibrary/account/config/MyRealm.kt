@@ -1,6 +1,5 @@
 package xyz.nahidalibrary.account.config
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import org.apache.shiro.authc.AuthenticationInfo
 import org.apache.shiro.authc.AuthenticationToken
@@ -22,12 +21,9 @@ open class MyRealm : AuthorizingRealm() {
   
   override fun doGetAuthenticationInfo(token: AuthenticationToken?): AuthenticationInfo? {
     val usernamePasswordToken = token as UsernamePasswordToken
-    return LambdaQueryWrapper<AccountModel>()
-      .eq(AccountModel::username, usernamePasswordToken.username)
-      .or()
-      .eq(AccountModel::email, usernamePasswordToken.username)
-      .let { accountMapper.selectOne(it) }
-      ?.let { SimpleAuthenticationInfo(it, it.password, "myRealm") }
+    val wrapper = QueryWrapper<AccountModel>()
+    wrapper.eq(AccountModel::username.name, usernamePasswordToken.username)
+    return accountMapper.selectOne(wrapper)?.let { SimpleAuthenticationInfo(it, it.password, "myRealm") }
   }
   
   override fun doGetAuthorizationInfo(principalCollection: PrincipalCollection?): AuthorizationInfo? {

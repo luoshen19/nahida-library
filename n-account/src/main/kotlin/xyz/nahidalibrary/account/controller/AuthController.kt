@@ -19,7 +19,7 @@ class AuthController {
     val currentUser = SecurityUtils.getSubject()
     val token = UsernamePasswordToken(loginDto.username, loginDto.password)
     
-//    currentUser.login(token)
+    currentUser.login(token)
     return "ok"
   }
 }
