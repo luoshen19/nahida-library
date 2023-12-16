@@ -1,14 +1,18 @@
 package xyz.nahidalibrary.account.config
 
-import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter
+import org.apache.shiro.web.filter.authc.BearerHttpAuthenticationFilter
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
+import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.RequestMethod
 import java.io.IOException
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JwtFilter : BasicHttpAuthenticationFilter() {
+@Component
+class JwtFilter : BearerHttpAuthenticationFilter() {
   
   private val logger = LoggerFactory.getLogger(JwtFilter::class.java)
   
@@ -35,20 +39,19 @@ class JwtFilter : BasicHttpAuthenticationFilter() {
   /**
    * 对跨域提供支持
    */
-//  @Override
-//  protected boolean preHandle(request: ServletRequest, response: ServletResponse) {
-//    HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-//    HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-//    httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
-//    httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
-//    httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));
-//    // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态
-//    if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
-//      httpServletResponse.setStatus(HttpStatus.OK.value());
-//      return false;
-//    }
-//    return super.preHandle(request, response);
-//  }
+  override fun preHandle(request: ServletRequest, response: ServletResponse): Boolean {
+    val httpServletRequest = request as HttpServletRequest
+    val httpServletResponse = response as HttpServletResponse
+    httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"))
+    httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE")
+    httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"))
+    // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态
+    if (httpServletRequest.method.equals(RequestMethod.OPTIONS.name)) {
+      httpServletResponse.status = HttpStatus.OK.value()
+      return false
+    }
+    return super.preHandle(request, response);
+  }
   
   /**
    * 将非法请求跳转到 /401

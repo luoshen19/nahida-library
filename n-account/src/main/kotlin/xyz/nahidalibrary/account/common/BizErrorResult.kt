@@ -6,5 +6,6 @@ data class BizErrorResult(
 )
 
 enum class BizErrorEnum {
-  SERVER_ERROR
+  SERVER_ERROR,
+  UNAUTHORIZED
 }

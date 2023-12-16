@@ -37,7 +37,7 @@ open class JwtRealm : AuthorizingRealm() {
     val usernamePasswordToken = authToken as UsernamePasswordToken
     val wrapper = QueryWrapper<AccountModel>()
     wrapper.eq(AccountModel::username.name, usernamePasswordToken.username)
-    return accountMapper.selectOne(wrapper)?.let { SimpleAuthenticationInfo(it, it.password, "myRealm") }
+    return accountMapper.selectOne(wrapper)?.let { SimpleAuthenticationInfo(it, it.password, "jwtRealm") }
   }
   
   /**

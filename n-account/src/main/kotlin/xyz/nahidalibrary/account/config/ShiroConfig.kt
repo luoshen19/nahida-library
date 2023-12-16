@@ -5,15 +5,20 @@ import org.apache.shiro.mgt.DefaultSubjectDAO
 import org.apache.shiro.realm.Realm
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import javax.servlet.Filter
 
 
 @Configuration
 open class ShiroConfig {
   
-  @Bean("jwtSecurityManager")
-  open fun jwtSecurityManager(realm: Realm): DefaultWebSecurityManager {
+  @Autowired
+  private lateinit var jwtFilter: JwtFilter
+  
+  @Bean
+  open fun securityManager(realm: Realm): DefaultWebSecurityManager {
     val manager = DefaultWebSecurityManager()
     manager.setRealm(realm)
     /**
@@ -27,18 +32,19 @@ open class ShiroConfig {
     return manager
   }
   
-  @Bean("jwtShiroFilterFactoryBean")
+  @Bean
   open fun shiroFilterFactoryBean(manager: DefaultWebSecurityManager): ShiroFilterFactoryBean =
     ShiroFilterFactoryBean().apply {
-      filters = mapOf(JwtFilter::class.java.name to JwtFilter())
+      val mapOf = mutableMapOf<String, Filter>("jwt" to jwtFilter)
+      filters = mapOf
       securityManager = manager
       unauthorizedUrl = "/401"
       /**
        * 自定义url规则
        * @see <a href="http://shiro.apache.org/web.html#urls-">自定义url规则</a>
        */
-      filterChainDefinitionMap = mapOf(
-//        "/test/jwt" to JwtFilter::class.java.name,
+      filterChainDefinitionMap = mutableMapOf(
+        "/test/jwt" to "jwt",
         "/401" to "anon"
       )
     }
