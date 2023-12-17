@@ -5,7 +5,6 @@ import org.apache.shiro.mgt.DefaultSubjectDAO
 import org.apache.shiro.realm.Realm
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import javax.servlet.Filter
@@ -13,9 +12,6 @@ import javax.servlet.Filter
 
 @Configuration
 open class ShiroConfig {
-  
-  @Autowired
-  private lateinit var jwtFilter: JwtFilter
   
   @Bean
   open fun securityManager(realm: Realm): DefaultWebSecurityManager {
@@ -28,14 +24,14 @@ open class ShiroConfig {
     val subjectDAO = DefaultSubjectDAO().apply {
       sessionStorageEvaluator = DefaultSessionStorageEvaluator().apply { isSessionStorageEnabled = false }
     }
-    manager.setSubjectDAO(subjectDAO);
+    manager.setSubjectDAO(subjectDAO)
     return manager
   }
   
   @Bean
   open fun shiroFilterFactoryBean(manager: DefaultWebSecurityManager): ShiroFilterFactoryBean =
     ShiroFilterFactoryBean().apply {
-      val mapOf = mutableMapOf<String, Filter>("jwt" to jwtFilter)
+      val mapOf = mutableMapOf<String, Filter>("jwt" to JwtFilter())
       filters = mapOf
       securityManager = manager
       unauthorizedUrl = "/401"

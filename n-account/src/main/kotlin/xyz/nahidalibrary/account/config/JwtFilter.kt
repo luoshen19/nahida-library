@@ -3,7 +3,6 @@ package xyz.nahidalibrary.account.config
 import org.apache.shiro.web.filter.authc.BearerHttpAuthenticationFilter
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
-import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.RequestMethod
 import java.io.IOException
 import javax.servlet.ServletRequest
@@ -11,7 +10,6 @@ import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@Component
 class JwtFilter : BearerHttpAuthenticationFilter() {
   
   private val logger = LoggerFactory.getLogger(JwtFilter::class.java)
