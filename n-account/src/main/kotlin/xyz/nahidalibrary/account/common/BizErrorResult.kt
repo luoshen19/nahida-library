@@ -1,11 +1,12 @@
 package xyz.nahidalibrary.account.common
 
 data class BizErrorResult(
-  val error: BizErrorEnum = BizErrorEnum.SERVER_ERROR,
+  val error: BizErrorTypeEnum = BizErrorTypeEnum.SERVER_ERROR,
   val message: String = "服务器错误"
 )
 
-enum class BizErrorEnum {
+enum class BizErrorTypeEnum {
   SERVER_ERROR,
-  UNAUTHORIZED
+  UNAUTHORIZED,
+  VERIFICATION
 }

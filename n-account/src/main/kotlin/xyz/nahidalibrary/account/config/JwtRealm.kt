@@ -4,16 +4,21 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import org.apache.shiro.authc.AuthenticationInfo
 import org.apache.shiro.authc.AuthenticationToken
 import org.apache.shiro.authc.SimpleAuthenticationInfo
-import org.apache.shiro.authc.UsernamePasswordToken
 import org.apache.shiro.authz.AuthorizationInfo
 import org.apache.shiro.realm.AuthorizingRealm
 import org.apache.shiro.subject.PrincipalCollection
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
+import xyz.nahidalibrary.account.common.BizErrorTypeEnum
+import xyz.nahidalibrary.account.exception.BizException
 import xyz.nahidalibrary.account.mapper.AccountMapper
 import xyz.nahidalibrary.account.model.AccountModel
+import xyz.nahidalibrary.account.util.JwtUtils
 
+/**
+ * JWT 接口校验
+ */
 @Configuration
 open class JwtRealm : AuthorizingRealm() {
   
@@ -30,14 +35,16 @@ open class JwtRealm : AuthorizingRealm() {
    * 认证
    */
   override fun doGetAuthenticationInfo(authToken: AuthenticationToken): AuthenticationInfo? {
-//    val username = JwtUtils.getUsername(authToken.credentials as String)
-//      ?: throw BizException()
-    
-    
-    val usernamePasswordToken = authToken as UsernamePasswordToken
-    val wrapper = QueryWrapper<AccountModel>()
-    wrapper.eq(AccountModel::username.name, usernamePasswordToken.username)
-    return accountMapper.selectOne(wrapper)?.let { SimpleAuthenticationInfo(it, it.password, "jwtRealm") }
+    val token = authToken.credentials as String
+    val username = JwtUtils.getUsername(token)
+      ?: throw BizException(BizErrorTypeEnum.UNAUTHORIZED, "认证失败")
+    val wrapper = QueryWrapper<AccountModel>().eq(AccountModel::username.name, username)
+    val account = accountMapper.selectOne(wrapper)
+      ?: throw BizException(BizErrorTypeEnum.UNAUTHORIZED, "认证失败")
+    if (!JwtUtils.verify(token = token, username = username, secret = account.secret)) {
+      throw BizException(BizErrorTypeEnum.UNAUTHORIZED, "认证失败")
+    }
+    return SimpleAuthenticationInfo(token, token, "jwtRealm")
   }
   
   /**
