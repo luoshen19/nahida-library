@@ -8,7 +8,7 @@ import xyz.nahidalibrary.account.anno.NoArg
 @TableName("n_account")
 data class AccountModel(
   val username: String,
-  @TableField("'password'")
+  @TableField("\"password\"")
   val password: String?,
   /**用于JWT加密的密钥 与password相同，如果未设置则取随机值*/
   val secret: String,

@@ -2,6 +2,7 @@ package xyz.nahidalibrary.account.service.impl
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import org.apache.shiro.crypto.hash.Md5Hash
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import xyz.nahidalibrary.account.mapper.AccountMapper
@@ -10,6 +11,8 @@ import xyz.nahidalibrary.account.service.AccountService
 
 @Service
 class AccountServiceImpl : AccountService {
+  
+  private val logger = LoggerFactory.getLogger(AccountServiceImpl::class.java)
   
   @Autowired
   private lateinit var accountMapper: AccountMapper
@@ -29,7 +32,11 @@ class AccountServiceImpl : AccountService {
       secret = md5Pwd,
       nickname = username
     )
-    accountMapper.insert(newAccount)
+    try {
+      accountMapper.insert(newAccount)
+    } catch (e: Exception) {
+      logger.error("ex", e)
+    }
     return newAccount
   }
 }
