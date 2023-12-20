@@ -7,10 +7,5 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/account")
 class AccountController {
-  
-  @GetMapping("/probe")
-  fun probe(): String {
-    println("hello world")
-    return "ok"
-  }
+
 }
