@@ -1,4 +1,4 @@
-package xyz.nahidalibrary.account.config.nshiro
+package xyz.nahidalibrary.account.config.nshiro.token
 
 import org.apache.shiro.authc.AuthenticationToken
 

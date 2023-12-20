@@ -8,5 +8,6 @@ data class BizErrorResult(
 enum class BizErrorTypeEnum {
   SERVER_ERROR,
   UNAUTHORIZED,
+  UNREGISTERED,
   VERIFICATION
 }

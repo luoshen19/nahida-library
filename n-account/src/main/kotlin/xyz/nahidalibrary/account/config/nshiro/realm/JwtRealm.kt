@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import xyz.nahidalibrary.account.common.BizErrorTypeEnum
 import xyz.nahidalibrary.account.config.nshiro.CurrentAccount
-import xyz.nahidalibrary.account.config.nshiro.JwtToken
 import xyz.nahidalibrary.account.config.nshiro.PRINCIPAL_KEY
+import xyz.nahidalibrary.account.config.nshiro.token.JwtToken
 import xyz.nahidalibrary.account.exception.BizException
 import xyz.nahidalibrary.account.mapper.AccountMapper
 import xyz.nahidalibrary.account.model.AccountModel

@@ -5,7 +5,7 @@ import xyz.nahidalibrary.account.vo.LoginVo
 
 interface AccountService {
   
-  fun login(username: String, password: String): LoginVo
+  fun login(username: String, password: String, isEmail: Boolean = false): LoginVo
   
   fun getOrCreate(username: String, password: String): AccountModel
 }

@@ -2,6 +2,7 @@ package xyz.nahidalibrary.account.config.nshiro
 
 import org.apache.shiro.web.filter.authc.BearerHttpAuthenticationFilter
 import org.slf4j.LoggerFactory
+import xyz.nahidalibrary.account.config.nshiro.token.JwtToken
 import java.io.IOException
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse

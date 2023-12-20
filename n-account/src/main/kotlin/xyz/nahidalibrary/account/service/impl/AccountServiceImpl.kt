@@ -3,13 +3,14 @@ package xyz.nahidalibrary.account.service.impl
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
-import org.apache.shiro.authc.UsernamePasswordToken
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import xyz.nahidalibrary.account.common.BizErrorTypeEnum
 import xyz.nahidalibrary.account.config.nshiro.getId
 import xyz.nahidalibrary.account.config.nshiro.getSecret
 import xyz.nahidalibrary.account.config.nshiro.getUsername
+import xyz.nahidalibrary.account.config.nshiro.token.PasswdToken
 import xyz.nahidalibrary.account.exception.UnauthorizedException
 import xyz.nahidalibrary.account.mapper.AccountMapper
 import xyz.nahidalibrary.account.model.AccountModel
@@ -25,12 +26,19 @@ class AccountServiceImpl : AccountService {
   
   @Autowired
   private lateinit var accountMapper: AccountMapper
-  override fun login(username: String, password: String): LoginVo {
-    val subject = SecurityUtils.getSubject()
-    val token = UsernamePasswordToken(username, password)
+  
+  override fun login(username: String, password: String, isEmail: Boolean): LoginVo {
+    val account = if (isEmail) {
+      val wrapper = QueryWrapper<AccountModel>().eq(AccountModel::email.name, username)
+      accountMapper.selectOne(wrapper)
+        ?: throw UnauthorizedException(BizErrorTypeEnum.UNREGISTERED, "邮箱未绑定,或者账号未注册")
+    } else {
+      getOrCreate(username, password)
+    }
     
+    val subject = SecurityUtils.getSubject()
     try {
-      subject.login(token)
+      subject.login(PasswdToken(account, password))
     } catch (e: AuthenticationException) {
       throw UnauthorizedException()
     }
@@ -40,7 +48,6 @@ class AccountServiceImpl : AccountService {
   
   override fun getOrCreate(username: String, password: String): AccountModel {
     val wrapper = QueryWrapper<AccountModel>().eq(AccountModel::username.name, username)
-      .or().eq(AccountModel::email.name, username)
     val account = accountMapper.selectOne(wrapper)
     if (account != null) {
       return account
