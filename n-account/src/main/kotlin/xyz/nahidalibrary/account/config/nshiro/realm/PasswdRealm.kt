@@ -11,6 +11,8 @@ import org.apache.shiro.subject.PrincipalCollection
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
+import xyz.nahidalibrary.account.config.nshiro.CurrentAccount
+import xyz.nahidalibrary.account.config.nshiro.PRINCIPAL_KEY
 import xyz.nahidalibrary.account.service.AccountService
 import xyz.nahidalibrary.account.util.CommonUtils
 
@@ -41,7 +43,8 @@ open class PasswdRealm : AuthorizingRealm() {
       logger.error("getOrCreate", e)
       throw e
     }
-    return SimpleAuthenticationInfo(account, account.password, PasswdRealm::class.java.simpleName)
+    val currentAccount = CurrentAccount(account.id!!, account.username, account.secret)
+    return SimpleAuthenticationInfo(currentAccount, account.password, PRINCIPAL_KEY)
   }
   
   /**

@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import xyz.nahidalibrary.account.common.BizErrorTypeEnum
+import xyz.nahidalibrary.account.config.nshiro.CurrentAccount
 import xyz.nahidalibrary.account.config.nshiro.JwtToken
+import xyz.nahidalibrary.account.config.nshiro.PRINCIPAL_KEY
 import xyz.nahidalibrary.account.exception.BizException
 import xyz.nahidalibrary.account.mapper.AccountMapper
 import xyz.nahidalibrary.account.model.AccountModel
@@ -38,12 +40,11 @@ open class JwtRealm : AuthorizingRealm() {
    */
   override fun doGetAuthenticationInfo(authToken: AuthenticationToken): AuthenticationInfo? {
     val token = authToken.credentials as String
-    val username = JwtUtils.getUsername(token)
-      ?: throw BizException(BizErrorTypeEnum.UNAUTHORIZED, "认证失败")
-    val wrapper = QueryWrapper<AccountModel>().eq(AccountModel::username.name, username)
+    val wrapper = QueryWrapper<AccountModel>().eq(AccountModel::id.name, JwtUtils.getId(token))
     val account = accountMapper.selectOne(wrapper)
       ?: throw BizException(BizErrorTypeEnum.UNAUTHORIZED, "认证失败")
-    return SimpleAuthenticationInfo(account, account.secret, "jwtRealm")
+    val currentAccount = CurrentAccount(account.id!!, account.username, account.secret)
+    return SimpleAuthenticationInfo(currentAccount, account.secret, PRINCIPAL_KEY)
   }
   
   /**

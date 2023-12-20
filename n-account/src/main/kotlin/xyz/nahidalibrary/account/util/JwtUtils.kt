@@ -2,8 +2,6 @@ package xyz.nahidalibrary.account.util
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.auth0.jwt.exceptions.JWTDecodeException
-import java.io.UnsupportedEncodingException
 import java.util.*
 
 object JwtUtils {
@@ -20,35 +18,23 @@ object JwtUtils {
     }
   }
   
-  /**
-   * 获得token中的信息无需secret解密也能获得
-   * @return token中包含的用户名
-   */
-  fun getUsername(token: String): String? {
-    return try {
-      val jwt = JWT.decode(token);
-      jwt.getClaim("username").asString();
-    } catch (e: JWTDecodeException) {
-      null;
-    }
-  }
+  fun getId(token: String): Long = JWT.decode(token).getClaim(JwtClaimKeyEnum.ID.toString()).asLong()
+  
+  fun getUsername(token: String): String = JWT.decode(token).getClaim(JwtClaimKeyEnum.USERNAME.toString()).asString()
   
   /**
-   * 生成签名,5min后过期
-   * @param username 用户名
-   * @param secret 用户的密码
+   * 生成签名
+   * @param secret JWT加密密钥
    * @return 加密的token
    */
-  fun sign(username: String, secret: String): String? {
-    return try {
-      val date = Date(System.currentTimeMillis() + EXPIRE_TIME);
-      val algorithm = Algorithm.HMAC256(secret);
-      JWT.create()
-        .withClaim("username", username)
-        .withExpiresAt(date)
-        .sign(algorithm)
-    } catch (e: UnsupportedEncodingException) {
-      null
-    }
-  }
+  fun sign(id: Long, username: String, secret: String): String =
+    JWT.create()
+      .withClaim(JwtClaimKeyEnum.ID.toString(), id)
+      .withClaim(JwtClaimKeyEnum.USERNAME.toString(), username)
+      .withExpiresAt(Date(System.currentTimeMillis() + EXPIRE_TIME))
+      .sign(Algorithm.HMAC256(secret))
+}
+
+enum class JwtClaimKeyEnum {
+  ID, USERNAME
 }
