@@ -1,18 +1,18 @@
-package xyz.nahidalibrary.account.config
+package xyz.nahidalibrary.account.config.nshiro.realm
 
 import org.apache.shiro.authc.AuthenticationInfo
 import org.apache.shiro.authc.AuthenticationToken
 import org.apache.shiro.authc.SimpleAuthenticationInfo
 import org.apache.shiro.authc.UsernamePasswordToken
+import org.apache.shiro.authc.credential.CredentialsMatcher
 import org.apache.shiro.authz.AuthorizationInfo
-import org.apache.shiro.crypto.hash.Md5Hash
 import org.apache.shiro.realm.AuthorizingRealm
 import org.apache.shiro.subject.PrincipalCollection
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
-import xyz.nahidalibrary.account.exception.UnauthorizedException
 import xyz.nahidalibrary.account.service.AccountService
+import xyz.nahidalibrary.account.util.CommonUtils
 
 /**
  * Passwd 即 Password
@@ -35,13 +35,13 @@ open class PasswdRealm : AuthorizingRealm() {
    */
   override fun doGetAuthenticationInfo(authToken: AuthenticationToken): AuthenticationInfo? {
     val token = authToken as UsernamePasswordToken
-    val account = accountService.getOrCreate(token.username, token.password.toString())
-    // 密码校验
-    if (account.password != Md5Hash(token.password).toHex()) {
-      logger.info("UnauthorizedException: 账号/邮箱 或 密码错误")
-      throw UnauthorizedException()
+    val account = try {
+      accountService.getOrCreate(token.username, String(token.password))
+    } catch (e: Exception) {
+      logger.error("getOrCreate", e)
+      throw e
     }
-    return SimpleAuthenticationInfo(account.username, account.secret, PasswdRealm::class.java.simpleName)
+    return SimpleAuthenticationInfo(account, account.password, PasswdRealm::class.java.simpleName)
   }
   
   /**
@@ -49,5 +49,17 @@ open class PasswdRealm : AuthorizingRealm() {
    */
   override fun doGetAuthorizationInfo(principal: PrincipalCollection?): AuthorizationInfo? {
     return null
+  }
+  
+  override fun setCredentialsMatcher(credentialsMatcher: CredentialsMatcher) {
+    super.setCredentialsMatcher(PasswdCredentialsMatcher())
+  }
+}
+
+class PasswdCredentialsMatcher : CredentialsMatcher {
+  override fun doCredentialsMatch(token: AuthenticationToken, info: AuthenticationInfo): Boolean {
+    val tokenCredentials = token as UsernamePasswordToken
+    val accountCredentials = info.credentials as String
+    return accountCredentials == CommonUtils.md5(tokenCredentials.password)
   }
 }

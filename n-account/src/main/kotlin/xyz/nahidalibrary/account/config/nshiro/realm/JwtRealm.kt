@@ -1,9 +1,10 @@
-package xyz.nahidalibrary.account.config
+package xyz.nahidalibrary.account.config.nshiro.realm
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import org.apache.shiro.authc.AuthenticationInfo
 import org.apache.shiro.authc.AuthenticationToken
 import org.apache.shiro.authc.SimpleAuthenticationInfo
+import org.apache.shiro.authc.credential.CredentialsMatcher
 import org.apache.shiro.authz.AuthorizationInfo
 import org.apache.shiro.realm.AuthorizingRealm
 import org.apache.shiro.subject.PrincipalCollection
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import xyz.nahidalibrary.account.common.BizErrorTypeEnum
+import xyz.nahidalibrary.account.config.nshiro.JwtToken
 import xyz.nahidalibrary.account.exception.BizException
 import xyz.nahidalibrary.account.mapper.AccountMapper
 import xyz.nahidalibrary.account.model.AccountModel
@@ -41,10 +43,7 @@ open class JwtRealm : AuthorizingRealm() {
     val wrapper = QueryWrapper<AccountModel>().eq(AccountModel::username.name, username)
     val account = accountMapper.selectOne(wrapper)
       ?: throw BizException(BizErrorTypeEnum.UNAUTHORIZED, "认证失败")
-    if (!JwtUtils.verify(token = token, username = username, secret = account.secret)) {
-      throw BizException(BizErrorTypeEnum.UNAUTHORIZED, "认证失败")
-    }
-    return SimpleAuthenticationInfo(token, token, "jwtRealm")
+    return SimpleAuthenticationInfo(account, account.secret, "jwtRealm")
   }
   
   /**
@@ -52,5 +51,17 @@ open class JwtRealm : AuthorizingRealm() {
    */
   override fun doGetAuthorizationInfo(principal: PrincipalCollection?): AuthorizationInfo? {
     return null
+  }
+  
+  override fun setCredentialsMatcher(credentialsMatcher: CredentialsMatcher) {
+    super.setCredentialsMatcher(JwtCredentialsMatcher())
+  }
+}
+
+class JwtCredentialsMatcher : CredentialsMatcher {
+  override fun doCredentialsMatch(token: AuthenticationToken, info: AuthenticationInfo): Boolean {
+    val tokenCredentials = token.credentials as String
+    val accountCredentials = info.credentials as String
+    return JwtUtils.verify(token = tokenCredentials, secret = accountCredentials)
   }
 }

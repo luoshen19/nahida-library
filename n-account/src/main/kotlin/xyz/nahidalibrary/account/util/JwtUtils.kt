@@ -11,13 +11,9 @@ object JwtUtils {
   // 过期时间5分钟
   private const val EXPIRE_TIME = 5 * 60 * 1000
 
-  fun verify(token: String, username: String, secret: String): Boolean {
+  fun verify(token: String, secret: String): Boolean {
     return try {
-      val algorithm = Algorithm.HMAC256(secret)
-      val verifier = JWT.require(algorithm)
-        .withClaim("username", username)
-        .build()
-      val jwt = verifier.verify(token)
+      JWT.require(Algorithm.HMAC256(secret)).build().verify(token)
       true
     } catch (e: Exception) {
       false

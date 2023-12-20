@@ -1,13 +1,13 @@
 package xyz.nahidalibrary.account.service.impl
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
-import org.apache.shiro.crypto.hash.Md5Hash
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import xyz.nahidalibrary.account.mapper.AccountMapper
 import xyz.nahidalibrary.account.model.AccountModel
 import xyz.nahidalibrary.account.service.AccountService
+import xyz.nahidalibrary.account.util.CommonUtils
 
 @Service
 class AccountServiceImpl : AccountService {
@@ -25,18 +25,14 @@ class AccountServiceImpl : AccountService {
       return account
     }
     // 没有账号则创建账号
-    val md5Pwd = Md5Hash(password).toHex()
+    val md5Pwd = CommonUtils.md5(password)
     val newAccount = AccountModel(
       username = username,
       password = md5Pwd,
       secret = md5Pwd,
       nickname = username
     )
-    try {
-      accountMapper.insert(newAccount)
-    } catch (e: Exception) {
-      logger.error("ex", e)
-    }
+    accountMapper.insert(newAccount)
     return newAccount
   }
 }

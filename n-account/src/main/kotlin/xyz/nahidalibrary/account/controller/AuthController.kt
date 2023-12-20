@@ -3,6 +3,7 @@ package xyz.nahidalibrary.account.controller
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.UsernamePasswordToken
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -17,6 +18,8 @@ import xyz.nahidalibrary.account.exception.UnauthorizedException
 
 @RestController
 class AuthController {
+  
+  private val logger = LoggerFactory.getLogger(AuthController::class.java)
   
   /**
    * 登录 如果未注册则直接注册
@@ -37,9 +40,11 @@ class AuthController {
     try {
       subject.login(token)
     } catch (e: AuthenticationException) {
+      logger.error("shiro login", e)
       throw UnauthorizedException()
     }
-//    JwtUtils.sign(subject.principals, subject.)
+//    subject.
+//    JwtUtils.sign(subject.principal., subject.)
     
     return "ok " + subject.principals
   }

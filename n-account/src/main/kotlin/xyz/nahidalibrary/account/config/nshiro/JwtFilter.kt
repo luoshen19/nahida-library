@@ -1,4 +1,4 @@
-package xyz.nahidalibrary.account.config
+package xyz.nahidalibrary.account.config.nshiro
 
 import org.apache.shiro.web.filter.authc.BearerHttpAuthenticationFilter
 import org.slf4j.LoggerFactory
