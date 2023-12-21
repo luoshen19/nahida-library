@@ -21,6 +21,11 @@ open class ShiroConfig {
   ): DefaultWebSecurityManager =
     DefaultWebSecurityManager().apply {
       this.setRealms(listOf(passwdRealm, jwtRealm))
+      // 后续在处理
+//      val modularRealmAuthenticator = ModularRealmAuthenticator().apply {
+//        authenticationListeners = listOf(NAuthenticationListener())
+//      }
+//      this.setAuthenticator(modularRealmAuthenticator)
       closeSession(this)
     }
   
