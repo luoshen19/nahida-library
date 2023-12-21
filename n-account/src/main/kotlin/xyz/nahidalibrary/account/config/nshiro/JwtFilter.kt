@@ -15,19 +15,19 @@ class JwtFilter : BearerHttpAuthenticationFilter() {
   
   override fun executeLogin(request: ServletRequest, response: ServletResponse): Boolean {
     val httpServletRequest = request as HttpServletRequest
-    val token = JwtToken(httpServletRequest.getHeader("Authorization"))
+    val token = JwtToken(httpServletRequest.getHeader("Authorization").replace("Bearer ", ""))
     // 提交给realm进行登入，如果错误他会抛出异常并被捕获
-    getSubject(request, response).login(token);
+    getSubject(request, response).login(token)
     // 如果没有抛出异常则代表登入成功，返回true
     return true;
   }
   
-  override fun isAccessAllowed(request: ServletRequest, response: ServletResponse, mappedValue: Any): Boolean {
+  override fun isAccessAllowed(request: ServletRequest, response: ServletResponse, mappedValue: Any?): Boolean {
     if (isLoginAttempt(request, response)) {
       try {
-        executeLogin(request, response);
+        executeLogin(request, response)
       } catch (e: Exception) {
-        response401(response);
+        response401(response)
       }
     }
     return true;

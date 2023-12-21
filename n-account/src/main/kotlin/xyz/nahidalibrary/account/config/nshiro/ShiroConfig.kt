@@ -27,8 +27,10 @@ open class ShiroConfig {
   @Bean("shiroFilterFactoryBean")
   open fun shiroFilterFactoryBean(manager: DefaultWebSecurityManager): ShiroFilterFactoryBean =
     ShiroFilterFactoryBean().apply {
-      val mapOf = mutableMapOf<String, Filter>("jwt" to JwtFilter())
-      filters = mapOf
+      val jwtFilterName = "jwt"
+      filters = mutableMapOf<String, Filter>(
+        jwtFilterName to JwtFilter()
+      )
       securityManager = manager
       unauthorizedUrl = "/401"
       /**
@@ -36,7 +38,7 @@ open class ShiroConfig {
        * @see <a href="http://shiro.apache.org/web.html#urls-">自定义url规则</a>
        */
       filterChainDefinitionMap = mutableMapOf(
-//        "/test/jwt" to "jwt",
+        "/test/jwt" to jwtFilterName,
         "/401" to "anon"
       )
     }
