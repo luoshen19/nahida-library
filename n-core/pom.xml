@@ -6,7 +6,7 @@
         <artifactId>nahida-library</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>n-storage</artifactId>
+    <artifactId>n-core</artifactId>
 
     <build>
         <plugins>

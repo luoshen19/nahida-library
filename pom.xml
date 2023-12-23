@@ -11,9 +11,9 @@
     <description>nahida-library</description>
 
     <modules>
-        <module>n-account</module>
-        <module>n-storage</module>
         <module>n-gateway</module>
+        <module>n-account</module>
+        <module>n-core</module>
     </modules>
 
     <properties>

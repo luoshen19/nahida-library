@@ -7,13 +7,23 @@ spring:
   main:
     web-application-type: reactive
   cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public
     gateway:
       routes:
         - id: account_route
-          uri: http://localhost:9001
+          uri: lb://account-service
           predicates:
             - Path=/account-service/**
           filters:
             - StripPrefix=1
-
+      globalcors:
+        cors-configurations:
+          ['/**']:
+            allowedOrigins: "*"
+            allowedOrigins: "*"
 
