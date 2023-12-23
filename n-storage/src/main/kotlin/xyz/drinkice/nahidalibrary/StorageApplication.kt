@@ -1,4 +1,4 @@
-package xyz.nahidalibrary.storage
+package xyz.drinkice.nahidalibrary
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

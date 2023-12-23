@@ -1,4 +1,4 @@
-package xyz.nahidalibrary.storage.controller
+package xyz.drinkice.nahidalibrary.controller
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
