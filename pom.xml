@@ -12,6 +12,8 @@
 
     <modules>
         <module>n-account</module>
+        <module>n-storage</module>
+        <module>n-gateway</module>
     </modules>
 
     <properties>
