@@ -1,12 +1,14 @@
 package xyz.drinkice.nahidalibrary.dto
 
-@xyz.drinkice.nahidalibrary.anno.NoArg
+import xyz.drinkice.nahidalibrary.anno.NoArg
+
+@NoArg
 data class LoginDto(
   val username: String,
   val password: String
 )
 
-@xyz.drinkice.nahidalibrary.anno.NoArg
+@NoArg
 data class LoginByCodeDto(
   val email: String,
   val code: String
