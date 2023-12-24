@@ -1,4 +1,4 @@
-package xyz.drinkice.nahidalibrary.common
+package xyz.drinkice.nahidalibrary.common.model
 
 data class BizErrorResult(
   val error: BizErrorTypeEnum = BizErrorTypeEnum.SERVER_ERROR,

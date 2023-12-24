@@ -6,6 +6,7 @@ import org.apache.shiro.authc.AuthenticationException
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import xyz.drinkice.nahidalibrary.common.model.BizErrorTypeEnum
 import xyz.drinkice.nahidalibrary.config.nshiro.getId
 import xyz.drinkice.nahidalibrary.config.nshiro.getSecret
 import xyz.drinkice.nahidalibrary.config.nshiro.getUsername
@@ -30,7 +31,7 @@ class AccountServiceImpl : AccountService {
     val account = if (isEmail) {
       val wrapper = QueryWrapper<AccountModel>().eq(AccountModel::email.name, username)
       accountMapper.selectOne(wrapper)
-        ?: throw UnauthorizedException(xyz.drinkice.nahidalibrary.common.BizErrorTypeEnum.UNREGISTERED, "邮箱未绑定,或者账号未注册")
+        ?: throw UnauthorizedException(BizErrorTypeEnum.UNREGISTERED, "邮箱未绑定,或者账号未注册")
     } else {
       getOrCreate(username, password)
     }

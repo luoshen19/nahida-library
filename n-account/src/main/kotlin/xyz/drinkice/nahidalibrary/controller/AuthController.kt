@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import xyz.drinkice.nahidalibrary.common.model.BizErrorResult
+import xyz.drinkice.nahidalibrary.common.model.BizErrorTypeEnum
 import xyz.drinkice.nahidalibrary.dto.LoginByCodeDto
 import xyz.drinkice.nahidalibrary.dto.LoginDto
 import xyz.drinkice.nahidalibrary.exception.VerificationException
@@ -69,10 +71,10 @@ class AuthController {
   }
   
   @RequestMapping("/401")
-  fun unauthorized(): ResponseEntity<xyz.drinkice.nahidalibrary.common.BizErrorResult> =
+  fun unauthorized(): ResponseEntity<BizErrorResult> =
     ResponseEntity(
-      xyz.drinkice.nahidalibrary.common.BizErrorResult(
-        error = xyz.drinkice.nahidalibrary.common.BizErrorTypeEnum.UNAUTHORIZED,
+      BizErrorResult(
+        error = BizErrorTypeEnum.UNAUTHORIZED,
         message = "请登录"
       ), HttpStatus.UNAUTHORIZED)
 }

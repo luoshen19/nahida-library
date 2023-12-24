@@ -1,7 +1,7 @@
 package xyz.drinkice.nahidalibrary.model
 
 import com.baomidou.mybatisplus.annotation.TableName
-import xyz.drinkice.nahidalibrary.anno.NoArg
+import xyz.drinkice.nahidalibrary.common.anno.NoArg
 
 @NoArg
 @TableName("n_third_account")

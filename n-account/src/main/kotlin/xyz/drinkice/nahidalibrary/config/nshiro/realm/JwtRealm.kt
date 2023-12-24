@@ -11,6 +11,7 @@ import org.apache.shiro.subject.PrincipalCollection
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
+import xyz.drinkice.nahidalibrary.common.model.BizErrorTypeEnum
 import xyz.drinkice.nahidalibrary.config.nshiro.CurrentAccount
 import xyz.drinkice.nahidalibrary.config.nshiro.PRINCIPAL_KEY
 import xyz.drinkice.nahidalibrary.config.nshiro.token.JwtToken
@@ -41,7 +42,7 @@ open class JwtRealm : AuthorizingRealm() {
     val token = authToken.credentials as String
     val wrapper = QueryWrapper<AccountModel>().eq(AccountModel::id.name, JwtUtils.getId(token))
     val account = accountMapper.selectOne(wrapper)
-      ?: throw BizException(xyz.drinkice.nahidalibrary.common.BizErrorTypeEnum.UNAUTHORIZED, "认证失败")
+      ?: throw BizException(BizErrorTypeEnum.UNAUTHORIZED, "认证失败")
     val currentAccount = CurrentAccount(account.id!!, account.username, account.secret)
     return SimpleAuthenticationInfo(currentAccount, account.secret, PRINCIPAL_KEY)
   }

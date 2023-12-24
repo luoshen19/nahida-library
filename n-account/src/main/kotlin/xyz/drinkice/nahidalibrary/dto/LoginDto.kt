@@ -1,6 +1,6 @@
 package xyz.drinkice.nahidalibrary.dto
 
-import xyz.drinkice.nahidalibrary.anno.NoArg
+import xyz.drinkice.nahidalibrary.common.anno.NoArg
 
 @NoArg
 data class LoginDto(
