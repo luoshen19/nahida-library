@@ -17,7 +17,6 @@ spring:
         password: nacos
         namespace: public
 
-
 mybatis-plus:
   global-config:
     db-config:
