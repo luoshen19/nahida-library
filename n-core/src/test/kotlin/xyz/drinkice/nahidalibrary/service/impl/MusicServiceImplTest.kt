@@ -15,4 +15,9 @@ class MusicServiceImplTest {
   fun listAlbum() {
     musicService.listAlbum().albumList.forEach { println(it) }
   }
+  
+  @Test
+  fun listMusic() {
+    musicService.listMusic(2).musicList.forEach { println(it) }
+  }
 }
