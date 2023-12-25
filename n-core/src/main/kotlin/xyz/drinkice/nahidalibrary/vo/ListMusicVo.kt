@@ -6,5 +6,6 @@ data class ListMusicVo(
 
 data class MusicItemVo(
   val id: Long,
-  val name: String
+  val name: String,
+  val link: String
 )

@@ -7,6 +7,7 @@ import xyz.drinkice.nahidalibrary.common.anno.NoArg
 @TableName("n_music")
 data class MusicModel(
   val name: String,
+  val link: String,
   val trainer: String,
   val trainerLink: String
 ) : BaseModel()

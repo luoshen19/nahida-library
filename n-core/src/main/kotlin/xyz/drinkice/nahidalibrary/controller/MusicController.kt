@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import xyz.drinkice.nahidalibrary.service.MusicService
+import xyz.drinkice.nahidalibrary.vo.ListAlbumVo
+import xyz.drinkice.nahidalibrary.vo.ListMusicVo
 
 @RestController
 @RequestMapping("/music")
@@ -21,9 +23,10 @@ class MusicController {
   }
   
   @GetMapping("/listAlbum")
-  fun listAlbum(): ResponseEntity<Map<String, String>> {
-    val listAlbum = musicService.listAlbum()
-    
-    return ResponseEntity(mapOf("hello" to "world"), HttpStatus.OK)
-  }
+  fun listAlbum(): ResponseEntity<ListAlbumVo> =
+    ResponseEntity.ok(musicService.listAlbum())
+  
+  @GetMapping("/listMusic")
+  fun listMusic(albumId: Long): ResponseEntity<ListMusicVo> =
+    ResponseEntity.ok(musicService.listMusic(albumId))
 }
