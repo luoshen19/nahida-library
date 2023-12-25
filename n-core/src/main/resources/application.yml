@@ -1,21 +1,14 @@
 server:
-  port: 9001
+  port: 9002
 
 spring:
   application:
-    name: account-service
+    name: core-service
   datasource:
     url: jdbc:postgresql://localhost:5432/nahida_library
     username: lkzc19
     password: 111111
     driver-class-name: org.postgresql.Driver
-  cloud:
-    nacos:
-      server-addr: localhost:8848
-      discovery:
-        username: nacos
-        password: nacos
-        namespace: public
 
 mybatis-plus:
   global-config:
