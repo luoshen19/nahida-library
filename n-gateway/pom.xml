@@ -34,7 +34,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>xyz.drinkice.nahidalibrary.GatewayApplication</mainClass>
+                    <mainClass>xyz.drinkice.nahidalibrary.GatewayApplicationKt</mainClass>
                 </configuration>
                 <executions>
                     <execution>

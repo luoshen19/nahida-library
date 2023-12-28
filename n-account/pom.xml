@@ -49,7 +49,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>xyz.drinkice.nahidalibrary.AccountApplication</mainClass>
+                    <mainClass>xyz.drinkice.nahidalibrary.AccountApplicationKt</mainClass>
                 </configuration>
                 <executions>
                     <execution>
