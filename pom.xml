@@ -18,6 +18,8 @@
     </modules>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <java.version>11</java.version>
         <kotlin.version>1.9.20</kotlin.version>
         <springcloud.version>Hoxton.SR12</springcloud.version>
@@ -154,6 +156,11 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${springboot.version}</version>
             </plugin>
         </plugins>
     </build>
