@@ -1,5 +1,5 @@
 # 基础镜像
-FROM openjdk:8-jdk-alpine
+FROM adoptopenjdk:11-jdk-hotspot
 
 # 指定工作目录
 WORKDIR /app

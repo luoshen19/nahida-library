@@ -1,5 +1,5 @@
 # 基础镜像
-FROM openjdk:8-jdk-alpine
+FROM adoptopenjdk:11-jdk-hotspot
 
 # 指定工作目录
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 ADD target/n-core-0.0.1-SNAPSHOT.jar .
 
 # 暴露端口
-EXPOSE 9001
+EXPOSE 9002
 
 # 启动命令
 ENTRYPOINT ["java","-jar","/app/n-core-0.0.1-SNAPSHOT.jar","--spring.profiles.active=local"]
