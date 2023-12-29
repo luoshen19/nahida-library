@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import xyz.drinkice.nahidalibrary.common.model.BizErrorResult
-import xyz.drinkice.nahidalibrary.common.model.BizErrorTypeEnum
+import xyz.drinkice.nahidalibrary.common.BizErrorResult
+import xyz.drinkice.nahidalibrary.common.BizErrorTypeEnum
 import xyz.drinkice.nahidalibrary.dto.LoginByCodeDto
 import xyz.drinkice.nahidalibrary.dto.LoginDto
 import xyz.drinkice.nahidalibrary.exception.VerificationException

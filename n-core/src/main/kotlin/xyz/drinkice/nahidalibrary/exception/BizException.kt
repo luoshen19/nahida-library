@@ -1,7 +1,7 @@
 package xyz.drinkice.nahidalibrary.exception
 
 import org.springframework.http.HttpStatus
-import xyz.drinkice.nahidalibrary.common.model.BizErrorTypeEnum
+import xyz.drinkice.nahidalibrary.common.BizErrorTypeEnum
 
 open class BizException(
   open val errorType: BizErrorTypeEnum = BizErrorTypeEnum.SERVER_ERROR,

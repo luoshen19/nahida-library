@@ -6,7 +6,7 @@ import org.apache.shiro.authc.AuthenticationException
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import xyz.drinkice.nahidalibrary.common.model.BizErrorTypeEnum
+import xyz.drinkice.nahidalibrary.common.BizErrorTypeEnum
 import xyz.drinkice.nahidalibrary.config.nshiro.getId
 import xyz.drinkice.nahidalibrary.config.nshiro.getSecret
 import xyz.drinkice.nahidalibrary.config.nshiro.getUsername

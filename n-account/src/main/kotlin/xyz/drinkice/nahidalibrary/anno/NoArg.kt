@@ -1,4 +1,4 @@
-package xyz.drinkice.nahidalibrary.common.anno
+package xyz.drinkice.nahidalibrary.anno
 
 
 /**

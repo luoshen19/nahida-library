@@ -1,7 +1,7 @@
 package xyz.drinkice.nahidalibrary.exception
 
 import org.springframework.http.HttpStatus
-import xyz.drinkice.nahidalibrary.common.model.BizErrorTypeEnum
+import xyz.drinkice.nahidalibrary.common.BizErrorTypeEnum
 
 class VerificationException(
   override val errorType: BizErrorTypeEnum = BizErrorTypeEnum.VERIFICATION,

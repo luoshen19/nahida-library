@@ -2,7 +2,7 @@ package xyz.drinkice.nahidalibrary.model
 
 import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableName
-import xyz.drinkice.nahidalibrary.common.anno.NoArg
+import xyz.drinkice.nahidalibrary.anno.NoArg
 
 @NoArg
 @TableName("n_account")

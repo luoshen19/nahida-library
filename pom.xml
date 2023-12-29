@@ -14,7 +14,6 @@
         <module>n-gateway</module>
         <module>n-account</module>
         <module>n-core</module>
-        <module>n-common</module>
     </modules>
 
     <properties>
@@ -28,8 +27,6 @@
         <mybatis-plus.version>3.5.3</mybatis-plus.version>
         <shiro.version>1.8.0</shiro.version>
         <jwt.version>3.2.0</jwt.version>
-
-        <n-common.version>0.0.1</n-common.version>
     </properties>
 
     <dependencies>
@@ -58,11 +55,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>xyz.drinkice</groupId>
-            <artifactId>n-common</artifactId>
         </dependency>
     </dependencies>
 
@@ -109,54 +101,11 @@
                 <artifactId>java-jwt</artifactId>
                 <version>${jwt.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>xyz.drinkice</groupId>
-                <artifactId>n-common</artifactId>
-                <version>${n-common.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jvmTarget>11</jvmTarget>
-                    <compilerPlugins>
-                        <plugin>no-arg</plugin>
-                    </compilerPlugins>
-                    <pluginOptions>
-                        <option>no-arg:annotation=xyz.drinkice.nahidalibrary.common.anno.NoArg</option>
-                    </pluginOptions>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-maven-noarg</artifactId>
-                        <version>${kotlin.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
