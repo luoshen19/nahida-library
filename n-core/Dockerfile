@@ -3,8 +3,6 @@ FROM adoptopenjdk:11-jdk-hotspot
 
 ENV ACTIVE $ACTIVE
 
-RUN if [ -z "ACTIVE" ]; then export ACTIVE=local; fi
-
 # 指定工作目录
 WORKDIR /app
 

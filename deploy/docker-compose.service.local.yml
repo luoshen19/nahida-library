@@ -2,6 +2,8 @@ version: '3'
 services:
   n-gateway:
     container_name: n-gateway
+    environment:
+      - ACTIVE
     build: # 服务的 Docker 构建文件位置
       context: ../n-gateway
       dockerfile: Dockerfile
@@ -12,6 +14,8 @@ services:
 
   n-account:
     container_name: n-account
+    environment:
+      - ACTIVE
     build:
       context: ../n-account
       dockerfile: Dockerfile
@@ -24,6 +28,8 @@ services:
 
   n-core:
     container_name: n-core
+    environment:
+      - ACTIVE
     build:
       context: ../n-core
       dockerfile: Dockerfile
