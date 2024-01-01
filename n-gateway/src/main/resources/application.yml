@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 9100
 
 spring:
   profiles:
@@ -8,23 +8,3 @@ spring:
     name: api-gateway
   main:
     web-application-type: reactive
-  cloud:
-    gateway:
-      routes:
-        - id: account_route
-          uri: lb://account-service
-          predicates:
-            - Path=/account-service/**
-          filters:
-            - StripPrefix=1
-        - id: core_route
-          uri: lb://core-service
-          predicates:
-            - Path=/core-service/**
-          filters:
-            - StripPrefix=1
-      globalcors:
-        cors-configurations:
-          ['/**']:
-            allowedOrigins: "*"
-            allowedMethods: "*"
