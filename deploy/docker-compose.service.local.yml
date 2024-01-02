@@ -1,0 +1,45 @@
+version: '3'
+services:
+  n-gateway:
+    container_name: n-gateway
+    environment:
+      - ACTIVE
+    build: # 服务的 Docker 构建文件位置
+      context: ../n-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "9100:9100"
+    networks:
+      - nahida-networks
+
+  n-account:
+    container_name: n-account
+    environment:
+      - ACTIVE
+    build:
+      context: ../n-account
+      dockerfile: Dockerfile
+    ports:
+      - "9101:9101"
+    networks:
+      - nahida-networks
+    depends_on: # 本服务依赖的服务，控制启动先后顺序
+      - n-gateway
+
+  n-core:
+    container_name: n-core
+    environment:
+      - ACTIVE
+    build:
+      context: ../n-core
+      dockerfile: Dockerfile
+    ports:
+      - "9102:9102"
+    networks:
+      - nahida-networks
+    depends_on:
+      - n-gateway
+      - n-account
+
+networks:
+  nahida-networks:

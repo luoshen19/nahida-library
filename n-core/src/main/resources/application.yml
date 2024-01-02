@@ -1,14 +1,11 @@
 server:
-  port: 9002
+  port: 9102
 
 spring:
+  profiles:
+    active: local
   application:
     name: core-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/nahida_library
-    username: lkzc19
-    password: 111111
-    driver-class-name: org.postgresql.Driver
 
 mybatis-plus:
   global-config:

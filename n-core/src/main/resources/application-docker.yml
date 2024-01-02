@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/nahida_library
+    username: nahida
+    password: nahida
+    driver-class-name: org.postgresql.Driver
+  cloud:
+    nacos:
+      server-addr: nacos:8848
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public

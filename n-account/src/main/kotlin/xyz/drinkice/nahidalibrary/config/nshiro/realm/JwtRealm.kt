@@ -11,7 +11,7 @@ import org.apache.shiro.subject.PrincipalCollection
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
-import xyz.drinkice.nahidalibrary.common.model.BizErrorTypeEnum
+import xyz.drinkice.nahidalibrary.common.BizErrorTypeEnum
 import xyz.drinkice.nahidalibrary.config.nshiro.CurrentAccount
 import xyz.drinkice.nahidalibrary.config.nshiro.PRINCIPAL_KEY
 import xyz.drinkice.nahidalibrary.config.nshiro.token.JwtToken

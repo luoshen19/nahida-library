@@ -1,29 +1,10 @@
 server:
-  port: 9000
+  port: 9100
 
 spring:
+  profiles:
+    active: local
   application:
     name: api-gateway
   main:
     web-application-type: reactive
-  cloud:
-    nacos:
-      server-addr: localhost:8848
-      discovery:
-        username: nacos
-        password: nacos
-        namespace: public
-    gateway:
-      routes:
-        - id: account_route
-          uri: lb://account-service
-          predicates:
-            - Path=/account-service/**
-          filters:
-            - StripPrefix=1
-      globalcors:
-        cors-configurations:
-          ['/**']:
-            allowedOrigins: "*"
-            allowedOrigins: "*"
-
