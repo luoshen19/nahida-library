@@ -2,11 +2,9 @@ version: '3'
 services:
   n-gateway:
     container_name: n-gateway
-    environment:
-      - ACTIVE
     build: # 服务的 Docker 构建文件位置
       context: ../n-gateway
-      dockerfile: Dockerfile
+      dockerfile: d.test.Dockerfile
     ports:
       - "9100:9100"
     networks:
@@ -14,11 +12,9 @@ services:
 
   n-account:
     container_name: n-account
-    environment:
-      - ACTIVE
     build:
       context: ../n-account
-      dockerfile: Dockerfile
+      dockerfile: d.test.Dockerfile
     ports:
       - "9101:9101"
     networks:
@@ -28,11 +24,9 @@ services:
 
   n-core:
     container_name: n-core
-    environment:
-      - ACTIVE
     build:
       context: ../n-core
-      dockerfile: Dockerfile
+      dockerfile: d.test.Dockerfile
     ports:
       - "9102:9102"
     networks:

@@ -1,10 +1,6 @@
 # 基础镜像
 FROM adoptopenjdk:11-jdk-hotspot
 
-ENV ACTIVE $ACTIVE
-
-RUN if [ -z "ACTIVE" ]; then export ACTIVE=local; fi
-
 # 指定工作目录
 WORKDIR /app
 
@@ -12,7 +8,7 @@ WORKDIR /app
 ADD target/n-gateway-0.0.1-SNAPSHOT.jar .
 
 # 暴露端口
-EXPOSE 9000
+EXPOSE 9100
 
 # 启动命令
-ENTRYPOINT ["java","-jar","/app/n-gateway-0.0.1-SNAPSHOT.jar","--spring.profiles.active=$ACTIVE"]
+ENTRYPOINT ["java","-jar","/app/n-gateway-0.0.1-SNAPSHOT.jar","--spring.profiles.active=test"]
