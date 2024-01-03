@@ -1,54 +1,39 @@
 version: '3'
 services:
-  yuoj-backend-gateway:
-    container_name: yuoj-backend-gateway
+  n-gateway:
+    container_name: n-gateway
     build: # 服务的 Docker 构建文件位置
-      context: ./yuoj-backend-gateway
-      dockerfile: Dockerfile
+      context: ../n-gateway
+      dockerfile: d.prod.Dockerfile
     ports:
-      - "8101:8101"
+      - "9100:9100"
     networks:
-      - mynetwork
+      - nahida-networks
 
-  yuoj-backend-user-service:
-    container_name: yuoj-backend-user-service
+  n-account:
+    container_name: n-svc-account
     build:
-      context: ./yuoj-backend-user-service
-      dockerfile: Dockerfile
+      context: ../n-svc-account
+      dockerfile: d.prod.Dockerfile
     ports:
-      - "8102:8102"
+      - "9101:9101"
     networks:
-      - mynetwork
+      - nahida-networks
     depends_on: # 本服务依赖的服务，控制启动先后顺序
-      - yuoj-backend-gateway
+      - n-gateway
 
-  yuoj-backend-question-service:
-    container_name: yuoj-backend-question-service
+  n-core:
+    container_name: n-svc-core
     build:
-      context: ./yuoj-backend-question-service
-      dockerfile: Dockerfile
+      context: ../n-svc-core
+      dockerfile: d.prod.Dockerfile
     ports:
-      - "8103:8103"
+      - "9102:9102"
     networks:
-      - mynetwork
+      - nahida-networks
     depends_on:
-      - yuoj-backend-user-service
-      - yuoj-backend-gateway
+      - n-gateway
+      - n-account
 
-  yuoj-backend-judge-service:
-    container_name: yuoj-backend-judge-service
-    build:
-      context: ./yuoj-backend-judge-service
-      dockerfile: Dockerfile
-    ports:
-      - "8104:8104"
-    networks:
-      - mynetwork
-    depends_on:
-      - yuoj-backend-user-service
-      - yuoj-backend-question-service
-      - yuoj-backend-gateway
-
-# 网络，不定义的话就是默认网络
 networks:
-  mynetwork:
+  nahida-networks:

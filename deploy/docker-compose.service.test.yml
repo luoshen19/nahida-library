@@ -11,9 +11,9 @@ services:
       - nahida-networks
 
   n-account:
-    container_name: n-account
+    container_name: n-svc-account
     build:
-      context: ../n-account
+      context: ../n-svc-account
       dockerfile: d.test.Dockerfile
     ports:
       - "9101:9101"
@@ -23,9 +23,9 @@ services:
       - n-gateway
 
   n-core:
-    container_name: n-core
+    container_name: n-svc-core
     build:
-      context: ../n-core
+      context: ../n-svc-core
       dockerfile: d.test.Dockerfile
     ports:
       - "9102:9102"

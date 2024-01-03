@@ -12,8 +12,8 @@
 
     <modules>
         <module>n-gateway</module>
-        <module>n-account</module>
-        <module>n-core</module>
+        <module>n-svc-account</module>
+        <module>n-svc-core</module>
     </modules>
 
     <properties>

@@ -5,10 +5,10 @@ FROM adoptopenjdk:11-jdk-hotspot
 WORKDIR /app
 
 # 将 jar 包添加到工作目录
-ADD target/n-account-0.0.1-SNAPSHOT.jar .
+ADD target/n-svc-account-0.0.1-SNAPSHOT.jar .
 
 # 暴露端口
 EXPOSE 9101
 
 # 启动命令
-ENTRYPOINT ["java","-jar","/app/n-account-0.0.1-SNAPSHOT.jar","--spring.profiles.active=test"]
+ENTRYPOINT ["java","-jar","/app/n-svc-account-0.0.1-SNAPSHOT.jar","--spring.profiles.active=test"]

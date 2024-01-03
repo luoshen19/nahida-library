@@ -14,6 +14,12 @@ spring:
             - Path=/account-service/**
           filters:
             - StripPrefix=1
+        - id: core_route
+          uri: lb://core-service
+          predicates:
+            - Path=/core-service/**
+          filters:
+            - StripPrefix=1
       globalcors:
         cors-configurations:
           ['/**']:
