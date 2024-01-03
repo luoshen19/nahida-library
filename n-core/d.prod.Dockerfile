@@ -8,7 +8,7 @@ WORKDIR /app
 ADD target/n-core-0.0.1-SNAPSHOT.jar .
 
 # 暴露端口
-EXPOSE 9002
+EXPOSE 9102
 
 # 启动命令
 ENTRYPOINT ["java","-jar","/app/n-core-0.0.1-SNAPSHOT.jar","--spring.profiles.active=prod"]
