@@ -6,3 +6,16 @@ spring:
         username: nacos
         password: nacos
         namespace: public
+    gateway:
+      routes:
+        - id: account_route
+          uri: lb://account-service
+          predicates:
+            - Path=/account-service/**
+          filters:
+            - StripPrefix=1
+      globalcors:
+        cors-configurations:
+          ['/**']:
+            allowedOrigins: "*"
+            allowedMethods: "*"

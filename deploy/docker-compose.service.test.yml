@@ -4,7 +4,7 @@ services:
     container_name: n-gateway
     build: # 服务的 Docker 构建文件位置
       context: ../n-gateway
-      dockerfile: d.local.Dockerfile
+      dockerfile: d.test.Dockerfile
     ports:
       - "9100:9100"
     networks:
@@ -14,7 +14,7 @@ services:
     container_name: n-account
     build:
       context: ../n-account
-      dockerfile: d.local.Dockerfile
+      dockerfile: d.test.Dockerfile
     ports:
       - "9101:9101"
     networks:
@@ -26,7 +26,7 @@ services:
     container_name: n-core
     build:
       context: ../n-core
-      dockerfile: d.local.Dockerfile
+      dockerfile: d.test.Dockerfile
     ports:
       - "9102:9102"
     networks:
