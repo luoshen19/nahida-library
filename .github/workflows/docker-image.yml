@@ -37,12 +37,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          file: n-gateway/d.prod.Dockerfile
-          platforms: |
-            linux/amd64
-            linux/arm64
-          push: true
-          tags: |
-            ${{ env.DOCKER_REPO_N_GATEWAY }}:latest
+        run: |
+          docker build ./n-gateway --file d.prod.Dockerfile --tag ${{ env.DOCKER_REPO_N_GATEWAY }}:latest
+          docker push --tag ${{ env.DOCKER_REPO_N_GATEWAY }}:latest
+            
