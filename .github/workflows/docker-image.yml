@@ -63,7 +63,7 @@ jobs:
       - name: Build and push n-svc-core
         uses: docker/build-push-action@v5
         with:
-          context: ./n-svc-account
+          context: ./n-svc-core
           file: ./n-svc-core/d.prod.Dockerfile
           platforms: |
             linux/amd64
