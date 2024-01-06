@@ -40,6 +40,6 @@ jobs:
         run: |
           ls ./n-gateway
           ls ./n-gateway/target
-          docker build ./n-gateway --file d.prod.Dockerfile --tag ${{ env.DOCKER_REPO_N_GATEWAY }}:latest
+          docker build ./n-gateway --file ./n-gateway/d.prod.Dockerfile --tag ${{ env.DOCKER_REPO_N_GATEWAY }}:latest
           docker push --tag ${{ env.DOCKER_REPO_N_GATEWAY }}:latest
             
