@@ -37,10 +37,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
-          context: n-gateway
-          file: d.prod.Dockerfile
+          file: n-gateway/d.prod.Dockerfile
           platforms: |
             linux/amd64
             linux/arm64
