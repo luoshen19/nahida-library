@@ -11,15 +11,15 @@ spring:
         - id: account_route
           uri: lb://account-svc
           predicates:
-            - Path=/api/account-svc/**
+            - Path=/account-svc/**
           filters:
-            - StripPrefix=2
+            - StripPrefix=1
         - id: core_route
           uri: lb://core-svc
           predicates:
-            - Path=/api/core-svc/**
+            - Path=/core-svc/**
           filters:
-            - StripPrefix=2
+            - StripPrefix=1
       globalcors:
         cors-configurations:
           ['/**']:
