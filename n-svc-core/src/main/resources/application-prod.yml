@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgresql:5432/nahida_library
+    url: jdbc:postgresql://postgres:5432/nahida_library
     username: lkzc19
     password: 111111
     driver-class-name: org.postgresql.Driver
@@ -9,5 +9,5 @@ spring:
       server-addr: nacos:8848
       discovery:
         username: nacos
-        password: nacos
+        password: nahida
         namespace: public
