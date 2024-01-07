@@ -11,4 +11,4 @@ ADD target/n-gateway-0.0.1-SNAPSHOT.jar .
 EXPOSE 9100
 
 # 启动命令
-ENTRYPOINT ["java","-jar","/app/n-gateway-0.0.1-SNAPSHOT.jar","--spring.profiles.active=prod"]
+ENTRYPOINT ["java","-Xms64m","-Xmx64m","-jar","/app/n-gateway-0.0.1-SNAPSHOT.jar","--spring.profiles.active=prod"]

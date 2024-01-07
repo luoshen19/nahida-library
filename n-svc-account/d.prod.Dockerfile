@@ -11,4 +11,4 @@ ADD target/n-svc-account-0.0.1-SNAPSHOT.jar .
 EXPOSE 9101
 
 # 启动命令
-ENTRYPOINT ["java","-jar","/app/n-svc-account-0.0.1-SNAPSHOT.jar","--spring.profiles.active=prod"]
+ENTRYPOINT ["java","-Xms64m","-Xmx64m","-jar","/app/n-svc-account-0.0.1-SNAPSHOT.jar","--spring.profiles.active=prod"]

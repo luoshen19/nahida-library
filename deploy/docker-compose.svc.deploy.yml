@@ -1,6 +1,7 @@
 version: '3'
 services:
   n-gateway:
+    image: lkzc19/n-gateway:latest
     container_name: n-gateway
     restart: always
     ports:
@@ -9,6 +10,7 @@ services:
       - nahida-networks
 
   n-account:
+    image: lkzc19/n-svc-account:latest
     container_name: n-svc-account
     restart: always
     ports:
@@ -19,6 +21,7 @@ services:
       - n-gateway
 
   n-core:
+    image: lkzc19/n-svc-core:latest
     container_name: n-svc-core
     restart: always
     ports:
