@@ -49,7 +49,8 @@ create table n_album
 
 create table n_music_album
 (
-    id         bigserial,
+    id         bigserial
+        primary key,
     create_at  timestamp not null,
     update_at  timestamp,
     is_deleted integer,
