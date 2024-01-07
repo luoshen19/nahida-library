@@ -32,6 +32,7 @@ create table n_music
     update_at    timestamp,
     is_deleted   boolean default false not null,
     name         varchar(64)           not null,
+    link         varchar(128)          not null,
     trainer      varchar(64),
     trainer_link varchar(128)
 );
