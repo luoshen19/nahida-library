@@ -71,3 +71,7 @@ jobs:
           push: true
           tags: |
             ${{ env.DOCKER_REPO_N_SVC_CORE }}:latest
+
+      - name: Webhook
+        run: |
+          curl --location --request GET '${{ secrets.WEBHOOK_URL }}'
