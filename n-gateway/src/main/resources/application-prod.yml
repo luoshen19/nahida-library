@@ -9,16 +9,18 @@ spring:
     gateway:
       routes:
         - id: account_route
-          uri: lb://account-service
+          uri: lb://account-svc
           predicates:
-            - Path=/account-service/**
+            - Path=/account-svc/**
           filters:
-            - StripPrefix=1
+            - PrefixPath=/api
+            - StripPrefix=2
         - id: core_route
-          uri: lb://core-service
+          uri: lb://core-svc
           predicates:
-            - Path=/core-service/**
+            - Path=/core-svc/**
           filters:
+            - PrefixPath=/api
             - StripPrefix=1
       globalcors:
         cors-configurations:
